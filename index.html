@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Taha Mohamed — Portfolio</title>
+  <meta name="description" content="Taha Mohamed — IT specialist. Software Engineer · CS Graduate @ Cairo University" />
+  <style>
+    :root{
+      --bg:#060a18;--surface:#0c1226;--card:rgba(18,26,46,.65);--ink:#eaf0ff;--muted:#9fb0d3;--brand:#8b7cff;--accent:#22d3ee;--line:#1f2b49;
+      --radius:22px;--shadow:0 18px 60px rgba(0,0,0,.45)
+    }
+    :root.light{--bg:#f6f9ff;--surface:#ffffff;--card:rgba(255,255,255,.78);--ink:#0a1326;--muted:#4b5878;--brand:#5b4bff;--accent:#0ea5e9;--line:#dfe7fb;--shadow:0 12px 34px rgba(0,0,0,.10)}
+    *,*:before,*:after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;overflow-x:hidden}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    #bgCanvas{position:fixed;inset:0;z-index:-2}
+    .radial{position:fixed;inset:-10%;pointer-events:none;z-index:-1;background:
+      radial-gradient(800px 500px at 80% -10%, rgba(34,211,238,.18), transparent 60%),
+      radial-gradient(900px 600px at -10% -10%, rgba(139,124,255,.16), transparent 60%)}
+
+    /* Header — nav on the TOP RIGHT */
+    header{position:sticky;top:0;z-index:80;background:color-mix(in oklab, var(--bg) 78%, transparent);backdrop-filter:saturate(1.2) blur(12px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .dot{width:12px;height:12px;border-radius:999px;background:conic-gradient(from 0deg,var(--brand),var(--accent));box-shadow:0 0 18px var(--accent)}
+    .nav-right{display:flex;align-items:center;gap:18px}
+    .nav-links a{color:var(--muted);font-size:14px;padding:12px 8px;border-bottom:2px solid transparent}
+    .nav-links a.active{color:var(--ink);border-color:var(--brand)}
+    .icon-btn{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--line);background:color-mix(in oklab, var(--surface) 80%, transparent);cursor:pointer}
+
+    /* Buttons & cards */
+    .btn{display:inline-grid;place-items:center;padding:12px 18px;border-radius:14px;font-weight:800;color:#fff;cursor:pointer;box-shadow:var(--shadow);transition:transform .06s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(180deg,color-mix(in oklab, var(--brand) 100%, #fff 8%), color-mix(in oklab, var(--brand) 92%, #000 10%))}
+    .btn.accent{background:linear-gradient(180deg,color-mix(in oklab, var(--accent) 100%, #fff 6%), color-mix(in oklab, var(--accent) 92%, #000 8%))}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+    /* right-side icons on Connect buttons */
+    .btn.icon{display:inline-flex;align-items:center;gap:10px}
+    .btn.icon .ico{width:18px;height:18px;fill:currentColor;opacity:.9;flex:0 0 auto}
+    .btn.icon .ico.ico-sm { width:14px; height:15px; }
+    /* NEW: slightly smaller icon only where applied */
+    .ico-sm{width:14px;height:14px}
+
+    .card{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:var(--card);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+    .card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--angle,0deg), var(--accent), transparent, var(--brand), transparent, var(--accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.35;pointer-events:none}
+    @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+    .card:hover{--angle: 360deg; transition: --angle 2.2s linear}
+    .chip{display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:color-mix(in oklab, var(--surface) 82%, transparent);font-size:12px}
+    .muted{color:var(--muted)}
+
+    main section{scroll-margin-top:92px}
+    h2.section{font-size:26px;letter-spacing:.3px;margin:34px 0 16px}
+    .grid{display:grid;gap:18px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+    /* Hero */
+    .hero{display:grid;place-items:center;min-height:78vh;text-align:center;padding:72px 0;position:relative}
+    .hero h1{font-size:clamp(48px,9vw,96px);line-height:1.02;margin:0 0 12px}
+    .hero h1{ font-weight: 550; font-variation-settings: 'wght' 550; }
+    .roles{font-size:clamp(18px,2.5vw,26px);color:var(--muted);font-weight:800}
+    .intro{max-width:980px;margin:10px auto 0;font-size:clamp(14px,2.2vw,18px);}
+
+    /* Skills (with small icons) */
+    .skill-card .skill-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+    .skill-icon{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:color-mix(in oklab,var(--surface) 82%, transparent);border:1px solid var(--line);font-size:16px}
+
+    /* Journey, alternating center spine */
+    .journey{background:linear-gradient(180deg, transparent, rgba(139,124,255,.10) 40%, rgba(34,211,238,.10));border-radius:var(--radius)}
+    .timeline{position:relative}
+    .timeline:before{content:"";position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);width:2px;background:linear-gradient(var(--brand),var(--accent));opacity:.6}
+    .trow{display:grid;grid-template-columns:1fr 1fr;align-items:center;margin:24px 0}
+    .trow .tcontent{position:relative}
+    .trow.left .tcontent{grid-column:1}
+    .trow.right .tcontent{grid-column:2}
+    .tmeta{position:absolute;top:-18px;display:flex;align-items:center;gap:10px}
+    .trow.left .tmeta{right:-18px}
+    .trow.right .tmeta{left:-18px}
+    .tl-node{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:radial-gradient(circle at 30% 30%, var(--accent), var(--brand));box-shadow:0 6px 16px rgba(0,0,0,.25);font-size:20px}
+    .year{color:color-mix(in oklab, var(--brand) 78%, white 10%);font-weight:800}
+
+    /* Projects spacing above Connect */
+    #connect{margin-top:44px}
+
+    /* Connect layout (screenshot style) */
+    .connect{text-align:center}
+    .cta-row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin:28px 0 18px}
+    .subcta-row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+
+    @media(max-width:960px){
+      .grid-2,.grid-3{grid-template-columns:1fr}
+      .timeline:before{left:12px;transform:none}
+      .trow{grid-template-columns:1fr}
+      .trow .tcontent{grid-column:1}
+      .trow .tmeta{left:-6px!important;right:auto}
+    }
+
+    /* Bottom contact bar */
+.contact-bar{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  padding:26px 0 10px;
+  margin-top:12px;
+}
+.contact-line{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.contact-line .ico{
+  width:18px;
+  height:18px;
+  fill:currentColor;
+  opacity:.9;
+  flex:0 0 auto;
+}
+.contact-link{
+  color:var(--ink);
+  font-weight:500;          /* matches your screenshot’s bold label */
+  text-decoration:none;
+}
+.contact-link:hover{ text-decoration:underline; }
+
+
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="radial" aria-hidden="true"></div>
+
+  <!-- Header: brand left, nav/top-right -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand" aria-label="Home"><span class="dot" aria-hidden></span></div>
+      <div class="nav-right">
+        <nav aria-label="Primary" class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#journey">Journey</a>
+          <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#connect">Connect</a>
+        </nav>
+        <button id="themeBtn" class="icon-btn" aria-label="Toggle theme">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <!-- HOME -->
+    <section id="home" class="hero">
+      <div>
+        <h1>Taha Mohamed</h1>
+        <div class="roles">Software & IT Engineer · CS grad @ Cairo University</div>
+        <p class="muted intro">Building scalable, automated, and secure systems or mobile applications through software engineering. Skilled in android studio, web Development, Java, and Python. Seeking a junior web developer or frontend developer role where I can apply my skills in modern web technologies, continue learning from experienced teams, and contribute to building clean, responsive, and user-friendly applications.</p>
+        <div style="margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn ghost" href="#journey">My Journey</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY (your data) -->
+    <section id="journey" class="journey">
+      <h2 class="section">My Journey</h2>
+      <div class="timeline">
+        <div class="trow left">
+          <div class="tcontent card">
+            <div class="tmeta"><span class="tl-node">🎓</span><span class="year">2019</span></div>
+            <strong>CS Foundations @ UNT</strong>
+            <div class="muted">Began B.S. in Computer Science with a major in Information Technology at Cairo University. Built a strong foundation in Data Structures, Algorithms, and Software Engineering, while exploring Android development and web development and networking.</div>
+          </div>
+        </div>
+        <div class="trow right">
+          <div class="tcontent card">
+            <div class="tmeta"><span class="tl-node">🎯</span><span class="year">2023</span></div>
+            <strong>Graduation</strong>
+            <div class="muted">Pursuing a B.S. in Computer Science (Major: Information Technology), Actively seeking Software Engineering, Android development, web technologies, networking courses to gain real-world experience and contribute to innovative, secure, and automated systems.</div>
+          </div>
+        </div>
+        <div class="trow left">
+          <div class="tcontent card">
+            <div class="tmeta"><span class="tl-node">📜</span><span class="year">2024–2025</span></div>
+            <strong>Certifications & Projects</strong>
+            <div class="muted">growing my skills in software engineering and networking, got Certifications in android development and web development also studied CCNA, i have published over 15 app and game on google play and app gallery stores.</div>
+          </div>
+        </div>
+        <div class="trow right">
+          <div class="tcontent card">
+            <div class="tmeta"><span class="tl-node">🛠️</span><span class="year">2025-2026</span></div>
+            <strong>National military service</strong>
+            <div class="muted">During my national service at ghamra military hospital, I was responsible for maintaining and managing all servers, network devices, and IT infrastructure of the hospital. I ensured the smooth operation and security of critical systems while providing IT support to staff, gaining hands-on experience in system administration, networking, and real-world problem solving.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2 class="section">Professional Experience</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Software Engineer freelancing <span class="muted">(April 2020 – Present)</span></h3>
+          <ul>
+            <li>Founded Interstellar Coders (April 2020 – Present) and spearheaded app and game development projects.</li>
+            <li>Designed, developed, and published multiple Android apps and games on Google Play Store and AppGallery.</li>
+            <li>Led the full development lifecycle from concept, design, coding, testing, to deployment.</li>
+            <li>Enhanced skills in mobile, game, and web development through hands-on project experience.</li>
+            <li>earned Certifications in Mobile development and web development and network.</li>
+          </ul>
+          <div class="muted">Android Studio · Firebase · Git/GitHub</div>
+        </article>
+        <article class="card">
+          <h3>IT Administrator - National Military service<span class="muted">(May 2025 – August 2026 · Ghamra Military Hospital)</span></h3>
+          <ul>
+          <li>Maintained and managed all hospital servers, network devices, and IT infrastructure.</li>
+          <li>Ensured continuous operation of hospital systems, including troubleshooting hardware and software issues.</li>
+          <li>Implemented security measures and performed regular backups to safeguard sensitive data.</li>
+          <li>Provided technical support to hospital staff and trained them on IT systems and protocols.</li>
+          </ul>
+          <div class="muted">Technical Support · Troubleshooting · Networking</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS with small icons -->
+    <!-- <section id="skills">
+      <h2 class="section">Core Expertise</h2>
+      <div class="grid grid-3">
+        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">💻</span><strong>Software Development</strong></div><div class="muted">Python, Java, C/C++, JavaScript</div></div>
+        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">☁️</span><strong>Cloud</strong></div><div class="muted">AWS, VMware </div></div>
+        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">🌐</span><strong>Web</strong></div><div class="muted">React, Node.js, REST APIs, HTML/CSS</div></div>
+        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">📊</span><strong>Machine learning</strong></div><div class="muted">Pandas, NumPy, scikit-learn</div></div>
+        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">🌐</span><strong>Network</strong></div><div class="muted">CCNA</div></div>
+      </div>
+    </section> -->
+
+    <section id="skills">
+      <h2 class="section">Core Expertise</h2>
+      <div class="grid grid-3">
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">💻</span>
+            <strong>Software Development</strong>
+          </div>
+          <div class="muted">Python, Java, C/C++, JavaScript</div>
+        </div>
+
+
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">☁️</span>
+            <strong>Cloud</strong>
+          </div>
+          <div class="muted">AWS · VMware</div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">🌐</span>
+            <strong>Web</strong>
+          </div>
+          <div class="muted">React, Node.js, REST APIs, HTML/CSS</div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">📊</span>
+            <strong>Data & ML</strong>
+          </div>
+          <div class="muted">Pandas, NumPy, scikit-learn</div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">🌐</span>
+            <strong>Networking</strong>
+          </div>
+          <div class="muted">CCNA</div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">🧠</span>
+            <strong>Problem Solving</strong>
+          </div>
+          <div class="muted">Data Structures & Algorithms, Object-Oriented Design, Competitive Programming</div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="skill-head">
+            <span class="skill-icon">🧰</span>
+            <strong>Tools & Platforms</strong>
+          </div>
+          <div class="muted">VS Code, IntelliJ, Linux, Git, Bash, PowerShell, Android Studio, kali, cisco packet tracer, atom</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 class="section">Featured Projects</h2>
+      <div class="grid grid-3">
+        <article class="card">
+        <h3>Human Resource (HR) system</h3>
+        <p> Full-stack system with real-time updates, secure auth, and automated deployments.</p>
+        <div class="muted">HTML/CSS . React </div>
+      </article>
+
+        <article class="card">
+        <h3>Night Patrol Bot (Graduation project)</h3>
+        <p>
+          Developed using Raspberry Pi, a camera, a motor, and four sound sensors, this bot performs automated night surveillance. The camera detects motion and determines whether it is caused by a human, while the sound sensors trigger the camera to rotate towards detected sounds. When a human is identified, the bot captures a screenshot and sends it to the owner via WhatsApp, demonstrating skills in IoT, automation, motion detection, and real-time alert systems.
+        </p>
+        <div class="muted">python . machine learning . hardware components . face recognition</div>
+      </article>
+
+      <article class="card">
+      <h3>Icy Tower Mobile Game</h3>
+      <p>
+      Developed as an Android game using Java and Android Studio Canvas, this 2D platformer challenges players to jump up an endless tower of platforms. Features include smooth character controls, progressive difficulty, and score tracking, showcasing skills in mobile game development, graphics rendering, and interactive design.
+      </p>
+      <div class="muted">
+      <strong>Tech Stack:</strong> Android Studio · Java · Canvas
+      </div>
+      <a href="https://appgallery.huawei.com/app/C111675071" class="btn ghost">View on AppGallery</a>
+      </article>
+        <article class="card">
+          <h3>Slayer Pixel Dungeon android game</h3>
+          <p>Developed as an Android game using Java and Android Studio Canvas, this pixel-art dungeon crawler allows players to navigate challenging levels, battle monsters, and collect loot. The game features strategic gameplay, procedural level design, and engaging pixel-art graphics, demonstrating skills in mobile game development, game mechanics, and interactive design.
+          </p>
+          <div class="muted">Android Studio · Java · Canvas</div>
+          <a href="https://appgallery.huawei.com/app/C111732793" class="btn ghost">View on AppGallery</a>
+        </article>
+        <article class="card">
+          <h3>office networking</h3>
+          <p>Designed and simulated office network using Packet Tracer, configuring routers, switches, and workstations, while implementing advanced networking concepts such as routing, VLANs, and network troubleshooting to ensure full connectivity and functionality.</p>
+
+          <div class="muted">Cisco Packet Tracer · Network troubleshooting tools</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section id="connect" class="connect card">
+      <h2 class="section" style="margin-top:0;font-size:36px">Let's Connect</h2>
+      <p class="muted" style="max-width:760px;margin:0 auto 18px">Interested in hiring me? Or in collaborating or learning more about my work? I'm always open to discussing new projects and opportunities.</p>
+
+
+
+      <div class="subcta-row">
+        <!-- LinkedIn (text then icon on RIGHT) — ICON MADE SLIGHTLY SMALLER -->
+        <a class="btn ghost icon" href="https://www.linkedin.com/in/taha-mohamed-19aa8a1b3/" target="_blank" rel="noopener">
+          LinkedIn
+          <svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zm7 0h3.83v1.98h.05C12 9.02 13.7 8 15.93 8 20.1 8 21 10.76 21 14.62V23h-4v-7.37c0-1.76-.03-4.02-2.45-4.02-2.46 0-2.84 1.92-2.84 3.9V23h-4V8.5z"/>
+          </svg>
+        </a>
+
+        <a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener">
+          Resume
+        </a>
+
+        <!-- GitHub (text then icon on RIGHT) -->
+        <a class="btn ghost icon" href="https://github.com/taha309" target="_blank" rel="noopener">
+          GitHub
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-1.98c-3.2.7-3.87-1.37-3.87-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.26 3.4.96.11-.76.41-1.26.74-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.2-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.75.81 1.2 1.83 1.2 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.79 1.07.79 2.17v3.22c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
+          </svg>
+        </a>
+      </div>
+
+      <p class="muted" style="margin-top:18px;font-size:13px">Your privacy is important to me. Email or phone works great; happy to share more details on request.</p>
+    </section>
+
+    <section class="contact-bar" aria-label="Contact">
+  <div class="contact-line">
+    <!-- Mail icon -->
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/>
+    </svg>
+    <a class="contact-link" href="mailto:tmy3092000@gmail.com">
+      tmy3092000@gmail.com
+    </a>
+  </div>
+
+  <div class="contact-line">
+    <!-- Phone icon -->
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.65a1 1 0 01-1 1C10.07 22.97 1.03 13.93 1.04 3.01a1 1 0 011-1H5.7a1 1 0 011 1c0 1.24.2 2.43.57 3.56a1 1 0 01-.25 1.02l-2.4 2.2z"/>
+    </svg>
+    <a class="contact-link" href="tel:+201099151019">
+      +201099151019
+    </a>
+  </div>
+</section>
+
+
+
+    <footer style="text-align:center;color:var(--muted);font-size:13px;margin-top:24px">© <span id="year"></span> · Taha Mohamed · Built with advanced HTML/CSS/JS</footer>
+  </main>
+
+  <script>
+    // ----- Theme toggle (dark by default; remembers choice) -----
+    const root=document.documentElement, KEY='kp_theme';
+    const saved=localStorage.getItem(KEY);
+    if(saved){ root.classList.toggle('light', saved==='light'); root.classList.toggle('dark', saved==='dark'); }
+    document.getElementById('themeBtn').addEventListener('click',()=>{
+      const next=root.classList.contains('light')?'dark':'light';
+      root.classList.toggle('light', next==='light');
+      root.classList.toggle('dark', next==='dark');
+      localStorage.setItem(KEY,next);
+    });
+
+    // ----- Scroll spy + click/hash fallback (reliable highlighting) -----
+    const links=[...document.querySelectorAll('.nav-links a')];
+    const byHash=new Map(links.map(a=>[a.getAttribute('href'),a]));
+    function setActive(hash){ links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===hash)); }
+    links.forEach(a=> a.addEventListener('click',()=> setActive(a.getAttribute('href')) ));
+    window.addEventListener('hashchange',()=> setActive(location.hash || '#home'));
+    const spy=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const hash='#'+e.target.id; if(byHash.get(hash)) setActive(hash);
+        }
+      });
+    },{ rootMargin:'-30% 0px -55% 0px', threshold:[0,0.25,0.5] });
+    document.querySelectorAll('main section').forEach(sec=>spy.observe(sec));
+    setActive(location.hash || '#home');
+
+    // ----- Background canvas particles -----
+    const c=document.getElementById('bgCanvas'), ctx=c.getContext('2d'), DPR=Math.min(2,devicePixelRatio||1);
+    function resize(){ c.width=innerWidth*DPR; c.height=innerHeight*DPR; ctx.setTransform(DPR,0,0,DPR,0,0) }
+    resize(); addEventListener('resize', resize);
+    const P=80, parts=Array.from({length:P},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()*2-1)*.6,vy:(Math.random()*2-1)*.6}));
+    (function step(){
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      const g=ctx.createLinearGradient(0,0,innerWidth,innerHeight); g.addColorStop(0,'rgba(124,156,255,.10)'); g.addColorStop(1,'rgba(34,211,238,.08)'); ctx.fillStyle=g; ctx.fillRect(0,0,innerWidth,innerHeight);
+      parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;});
+      for(let i=0;i<P;i++) for(let j=i+1;j<P;j++){const a=parts[i],b=parts[j];const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<150){ctx.globalAlpha=(150-d)/150*.45;ctx.strokeStyle='rgba(136,148,255,.8)';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+      ctx.globalAlpha=1; ctx.fillStyle='rgba(34,211,238,.9)'; parts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,1.8,0,Math.PI*2);ctx.fill();});
+      requestAnimationFrame(step);
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent=new Date().getFullYear();
+
+    // To use Calendly for “Book a Meeting”, just replace the href:
+    // document.getElementById('bookLink').href = 'https://calendly.com/YOUR_HANDLE/intro';
+  </script>
+</body>
+</html>
