@@ -3,584 +3,1858 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Taha Mohamed — Portfolio</title>
-  <meta name="description" content="Taha Mohamed — IT specialist. Software Engineer · CS Graduate @ Cairo University" />
+
+  <title>Taha Mohamed Youssef | Software Developer & Automation Systems Developer</title>
+  <meta
+    name="description"
+    content="Portfolio of Taha Mohamed Youssef — Software Developer with experience in mobile, web, automation, IT administration, and networking."
+  />
+
   <style>
-    :root{
-      --bg:#060a18;--surface:#0c1226;--card:rgba(18,26,46,.65);--ink:#eaf0ff;--muted:#9fb0d3;--brand:#8b7cff;--accent:#22d3ee;--line:#1f2b49;
-      --radius:22px;--shadow:0 18px 60px rgba(0,0,0,.45)
-    }
-    :root.light{--bg:#f6f9ff;--surface:#ffffff;--card:rgba(255,255,255,.78);--ink:#0a1326;--muted:#4b5878;--brand:#5b4bff;--accent:#0ea5e9;--line:#dfe7fb;--shadow:0 12px 34px rgba(0,0,0,.10)}
-    *,*:before,*:after{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;overflow-x:hidden}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:1200px;margin:0 auto;padding:24px}
-    #bgCanvas{position:fixed;inset:0;z-index:-2}
-    .radial{position:fixed;inset:-10%;pointer-events:none;z-index:-1;background:
-      radial-gradient(800px 500px at 80% -10%, rgba(34,211,238,.18), transparent 60%),
-      radial-gradient(900px 600px at -10% -10%, rgba(139,124,255,.16), transparent 60%)}
-
-    /* Header — nav on the TOP RIGHT */
-    header{position:sticky;top:0;z-index:80;background:color-mix(in oklab, var(--bg) 78%, transparent);backdrop-filter:saturate(1.2) blur(12px);border-bottom:1px solid var(--line)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .dot{width:12px;height:12px;border-radius:999px;background:conic-gradient(from 0deg,var(--brand),var(--accent));box-shadow:0 0 18px var(--accent)}
-    .nav-right{display:flex;align-items:center;gap:18px}
-    .nav-links a{color:var(--muted);font-size:14px;padding:12px 8px;border-bottom:2px solid transparent}
-    .nav-links a.active{color:var(--ink);border-color:var(--brand)}
-    .icon-btn{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--line);background:color-mix(in oklab, var(--surface) 80%, transparent);cursor:pointer}
-
-    /* Buttons & cards */
-    .btn{display:inline-grid;place-items:center;padding:12px 18px;border-radius:14px;font-weight:800;color:#fff;cursor:pointer;box-shadow:var(--shadow);transition:transform .06s ease}
-    .btn:hover{transform:translateY(-1px)}
-    .btn.primary{background:linear-gradient(180deg,color-mix(in oklab, var(--brand) 100%, #fff 8%), color-mix(in oklab, var(--brand) 92%, #000 10%))}
-    .btn.accent{background:linear-gradient(180deg,color-mix(in oklab, var(--accent) 100%, #fff 6%), color-mix(in oklab, var(--accent) 92%, #000 8%))}
-    .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-    /* right-side icons on Connect buttons */
-    .btn.icon{display:inline-flex;align-items:center;gap:10px}
-    .btn.icon .ico{width:18px;height:18px;fill:currentColor;opacity:.9;flex:0 0 auto}
-    .btn.icon .ico.ico-sm { width:14px; height:15px; }
-    /* NEW: slightly smaller icon only where applied */
-    .ico-sm{width:14px;height:14px}
-
-    .card{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:var(--card);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
-    .card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--angle,0deg), var(--accent), transparent, var(--brand), transparent, var(--accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.35;pointer-events:none}
-    @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-    .card:hover{--angle: 360deg; transition: --angle 2.2s linear}
-    .chip{display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:color-mix(in oklab, var(--surface) 82%, transparent);font-size:12px}
-    .muted{color:var(--muted)}
-
-    main section{scroll-margin-top:92px}
-    h2.section{font-size:26px;letter-spacing:.3px;margin:34px 0 16px}
-    .grid{display:grid;gap:18px}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-
-    /* Hero */
-    .hero{display:grid;place-items:center;min-height:78vh;text-align:center;padding:72px 0;position:relative}
-    .hero h1{font-size:clamp(48px,9vw,96px);line-height:1.02;margin:0 0 12px}
-    .hero h1{ font-weight: 550; font-variation-settings: 'wght' 550; }
-    .roles{font-size:clamp(18px,2.5vw,26px);color:var(--muted);font-weight:800}
-    .intro{max-width:980px;margin:10px auto 0;font-size:clamp(14px,2.2vw,18px);}
-
-    /* Skills (with small icons) */
-    .skill-card .skill-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .skill-icon{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:color-mix(in oklab,var(--surface) 82%, transparent);border:1px solid var(--line);font-size:16px}
-
-    /* Journey, alternating center spine */
-    .journey{background:linear-gradient(180deg, transparent, rgba(139,124,255,.10) 40%, rgba(34,211,238,.10));border-radius:var(--radius)}
-    .timeline{position:relative}
-    .timeline:before{content:"";position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);width:2px;background:linear-gradient(var(--brand),var(--accent));opacity:.6}
-    .trow{display:grid;grid-template-columns:1fr 1fr;align-items:center;margin:24px 0}
-    .trow .tcontent{position:relative}
-    .trow.left .tcontent{grid-column:1}
-    .trow.right .tcontent{grid-column:2}
-    .tmeta{position:absolute;top:-18px;display:flex;align-items:center;gap:10px}
-    .trow.left .tmeta{right:-18px}
-    .trow.right .tmeta{left:-18px}
-    .tl-node{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:radial-gradient(circle at 30% 30%, var(--accent), var(--brand));box-shadow:0 6px 16px rgba(0,0,0,.25);font-size:20px}
-    .year{color:color-mix(in oklab, var(--brand) 78%, white 10%);font-weight:800}
-
-    /* Projects spacing above Connect */
-    #connect{margin-top:44px}
-
-    /* Connect layout (screenshot style) */
-    .connect{text-align:center}
-    .cta-row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin:28px 0 18px}
-    .subcta-row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
-
-    @media(max-width:960px){
-      .grid-2,.grid-3{grid-template-columns:1fr}
-      .timeline:before{left:12px;transform:none}
-      .trow{grid-template-columns:1fr}
-      .trow .tcontent{grid-column:1}
-      .trow .tmeta{left:-6px!important;right:auto}
+    :root {
+      --bg: #07101f;
+      --bg-2: #0a1426;
+      --surface: rgba(13, 25, 46, 0.78);
+      --surface-solid: #0e1a30;
+      --surface-soft: rgba(255, 255, 255, 0.045);
+      --text: #edf4ff;
+      --muted: #9eb0c9;
+      --muted-2: #7f93ae;
+      --line: rgba(159, 181, 215, 0.16);
+      --brand: #8b7cff;
+      --accent: #38d9f5;
+      --success: #48d597;
+      --shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1180px;
     }
 
-    /* Bottom contact bar */
-.contact-bar{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-  padding:26px 0 10px;
-  margin-top:12px;
-}
-.contact-line{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.contact-line .ico{
-  width:18px;
-  height:18px;
-  fill:currentColor;
-  opacity:.9;
-  flex:0 0 auto;
-}
-.contact-link{
-  color:var(--ink);
-  font-weight:500;          /* matches your screenshot’s bold label */
-  text-decoration:none;
-}
-.contact-link:hover{ text-decoration:underline; }
+    :root.light {
+      --bg: #f5f8ff;
+      --bg-2: #eef3ff;
+      --surface: rgba(255, 255, 255, 0.86);
+      --surface-solid: #ffffff;
+      --surface-soft: rgba(31, 54, 93, 0.045);
+      --text: #111c31;
+      --muted: #53647e;
+      --muted-2: #6b7b92;
+      --line: rgba(47, 71, 109, 0.14);
+      --brand: #6455e8;
+      --accent: #0ea5c6;
+      --success: #149b63;
+      --shadow: 0 20px 55px rgba(58, 80, 120, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at center, color-mix(in srgb, var(--bg-2) 45%, transparent), var(--bg));
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 75%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -60px;
+      z-index: 999;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      color: var(--text);
+      transition: top .2s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid transparent;
+      transition: .25s ease;
+    }
+
+    header.scrolled {
+      border-bottom-color: var(--line);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: -.02em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 10px 11px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: var(--surface-soft);
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+
+    main section {
+      scroll-margin-top: 92px;
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      padding: 68px 0 82px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(290px, .7fr);
+      gap: 58px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--success) 60%, transparent);
+    }
+
+    h1 {
+      margin: 22px 0 12px;
+      font-size: clamp(52px, 8vw, 92px);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 850;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, var(--brand), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-role {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(20px, 2.5vw, 30px);
+      line-height: 1.28;
+      font-weight: 750;
+      color: var(--muted);
+      letter-spacing: -.02em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 17px;
+      border-radius: 13px;
+      border: 1px solid var(--line);
+      font-weight: 800;
+      font-size: 14px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn.primary {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 50%, var(--accent)));
+      box-shadow: 0 16px 34px color-mix(in srgb, var(--brand) 24%, transparent);
+    }
+
+    .btn.secondary {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      color: var(--muted-2);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-panel {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, transparent), var(--surface));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -70px;
+      top: -70px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--brand) 20%, transparent);
+      filter: blur(20px);
+    }
+
+    .panel-kicker {
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .focus-list {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .focus-item {
+      padding: 15px 16px;
+      border-radius: 15px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+
+    .focus-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .focus-item span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      padding: 82px 0 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 850;
+      margin-bottom: 7px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 550px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: 0 16px 45px rgba(0,0,0,.10);
+    }
+
+    .education-card {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .education-card h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: -.02em;
+    }
+
+    .education-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .date-pill {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      background: var(--surface-soft);
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .experience-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .experience-card {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 30px;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .experience-card:hover,
+    .project-card:hover,
+    .skill-group:hover {
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--brand) 45%, var(--line));
+    }
+
+    .experience-time {
+      color: var(--muted-2);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding-top: 4px;
+    }
+
+    .experience-body h3 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -.02em;
+    }
+
+    .experience-place {
+      margin-top: 4px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .experience-body > p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .experience-bullets {
+      margin: 14px 0 0;
+      padding-left: 19px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .experience-bullets li + li {
+      margin-top: 6px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .skill-group {
+      padding: 22px;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .skill-group h3 {
+      margin: 0 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      letter-spacing: -.01em;
+    }
+
+    .skill-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--brand) 16%, transparent),
+        color-mix(in srgb, var(--accent) 12%, transparent)
+      );
+      border: 1px solid var(--line);
+      font-size: 16px;
+    }
+
+    .skill-group p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      position: relative;
+      padding: 25px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s ease, border-color .2s ease;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -70px;
+      bottom: -80px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--accent) 11%, transparent);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .project-type {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .project-card h3 {
+      margin: 8px 0 8px;
+      font-size: 22px;
+      letter-spacing: -.02em;
+    }
+
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .project-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: auto;
+      padding-top: 22px;
+    }
+
+    .project-footer .tech-row {
+      margin-top: 0;
+    }
+
+    .project-link {
+      position: relative;
+      z-index: 2;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+    }
+
+    .credentials-grid {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 16px;
+    }
+
+    .credential-card {
+      padding: 26px;
+    }
+
+    .credential-card h3 {
+      margin: 0 0 16px;
+      font-size: 18px;
+    }
+
+    .cert-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .cert-list li {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .language-row {
+      display: grid;
+      gap: 12px;
+    }
+
+    .language {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-soft);
+    }
+
+    .language strong {
+      display: block;
+    }
+
+    .language span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .contact {
+      margin-top: 82px;
+      margin-bottom: 24px;
+      padding: 36px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 23rem),
+        var(--surface);
+    }
+
+    .contact h2 {
+      font-size: clamp(32px, 5vw, 52px);
+    }
+
+    .contact > p {
+      max-width: 650px;
+      margin: 14px auto 0;
+      color: var(--muted);
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .contact-details a:hover {
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 24px 0 34px;
+      text-align: center;
+      color: var(--muted-2);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .ambient-core,
+      .ambient-orb,
+      .ambient-ring,
+      .ambient-beam,
+      .ambient-lines,
+      .hero-panel,
+      .ambient-orb {
+        max-width: 680px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .credentials-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .nav {
+        min-height: 64px;
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 48px 0 64px;
+      }
+
+      h1 {
+        font-size: clamp(48px, 16vw, 70px);
+      }
+
+      .hero-role {
+        font-size: 20px;
+      }
+
+      .hero-copy {
+        font-size: 14px;
+      }
+
+      .hero-actions .btn {
+        flex: 1 1 160px;
+      }
+
+      .section {
+        padding-top: 64px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 12px;
+      }
+
+      .education-card {
+        grid-template-columns: 1fr;
+      }
+
+      .education-card .date-pill {
+        width: fit-content;
+      }
+
+      .experience-card {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 22px;
+      }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        min-height: 0;
+      }
+
+      .contact {
+        padding: 28px 18px;
+      }
+    }
 
 
+
+
+    
+    /* ---------- Animated moving background ---------- */
+    .ambient-bg {
+      position: fixed;
+      inset: -12%;
+      z-index: -3;
+      overflow: hidden;
+      pointer-events: none;
+      isolation: isolate;
+    }
+
+    .ambient-core,
+    .ambient-orb,
+    .ambient-ring,
+    .ambient-beam,
+    .ambient-lines {
+      position: absolute;
+      transform: translate3d(0,0,0);
+      will-change: transform, opacity, background-position;
+    }
+
+    .ambient-core {
+      inset: 8%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--brand) 82%, transparent), transparent 24rem),
+        radial-gradient(circle at 80% 22%, color-mix(in srgb, var(--accent) 78%, transparent), transparent 22rem),
+        radial-gradient(circle at 52% 75%, color-mix(in srgb, var(--brand) 55%, var(--accent) 45%), transparent 22rem);
+      filter: blur(65px);
+      opacity: .36;
+      animation: coreDrift 16s ease-in-out infinite alternate;
+    }
+
+    .ambient-orb {
+      border-radius: 999px;
+      filter: blur(85px);
+      opacity: .50;
+    }
+
+    .orb-one {
+      width: 36rem;
+      height: 36rem;
+      left: -8rem;
+      top: 3%;
+      background: color-mix(in srgb, var(--brand) 74%, transparent);
+      animation: orbOneMove 16s ease-in-out infinite alternate;
+    }
+
+    .orb-two {
+      width: 31rem;
+      height: 31rem;
+      right: -6rem;
+      top: 24%;
+      background: color-mix(in srgb, var(--accent) 74%, transparent);
+      animation: orbTwoMove 18s ease-in-out infinite alternate;
+    }
+
+    .orb-three {
+      width: 28rem;
+      height: 28rem;
+      left: 32%;
+      bottom: -9rem;
+      background: color-mix(in srgb, var(--brand) 45%, var(--accent) 55%);
+      opacity: .30;
+      animation: orbThreeMove 20s ease-in-out infinite alternate;
+    }
+
+    .ambient-ring {
+      border-radius: 50%;
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--brand) 22%, transparent) inset,
+        0 0 30px color-mix(in srgb, var(--accent) 18%, transparent);
+      opacity: .22;
+      mix-blend-mode: screen;
+    }
+
+    .ring-one {
+      width: 54rem;
+      height: 54rem;
+      left: -10rem;
+      top: 14%;
+      animation: ringSpin 32s linear infinite;
+    }
+
+    .ring-two {
+      width: 42rem;
+      height: 42rem;
+      right: -8rem;
+      bottom: 2%;
+      animation: ringSpinReverse 24s linear infinite;
+    }
+
+    .ambient-beam {
+      width: 55rem;
+      height: 8rem;
+      border-radius: 999px;
+      filter: blur(22px);
+      opacity: .18;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--accent) 65%, transparent) 46%,
+        transparent 100%
+      );
+    }
+
+    .beam-one {
+      top: 14%;
+      left: -18rem;
+      transform: rotate(-18deg);
+      animation: beamSweepOne 12s ease-in-out infinite alternate;
+    }
+
+    .beam-two {
+      right: -15rem;
+      bottom: 10%;
+      transform: rotate(18deg);
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--brand) 65%, transparent) 50%,
+        transparent 100%
+      );
+      animation: beamSweepTwo 14s ease-in-out infinite alternate;
+    }
+
+    .ambient-lines {
+      inset: 0;
+      opacity: .42;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px),
+        linear-gradient(120deg, transparent 0%, rgba(56,217,245,.07) 48%, transparent 52%);
+      background-size: 84px 84px, 84px 84px, 220% 220%;
+      background-position: 0 0, 0 0, 0% 50%;
+      mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,.95), transparent 82%);
+      animation: gridShift 16s linear infinite, beamTexture 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes coreDrift {
+      0%   { transform: translate3d(-2vw, -1vh, 0) scale(1); }
+      50%  { transform: translate3d(3vw, 3vh, 0) scale(1.05); }
+      100% { transform: translate3d(7vw, -2vh, 0) scale(.98); }
+    }
+
+    @keyframes orbOneMove {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      50%  { transform: translate3d(8vw, 8vh, 0) scale(1.08); }
+      100% { transform: translate3d(15vw, -2vh, 0) scale(.96); }
+    }
+
+    @keyframes orbTwoMove {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      50%  { transform: translate3d(-9vw, -6vh, 0) scale(.95); }
+      100% { transform: translate3d(-17vw, 8vh, 0) scale(1.07); }
+    }
+
+    @keyframes orbThreeMove {
+      0%   { transform: translate3d(0, 0, 0) scale(.96); }
+      50%  { transform: translate3d(-7vw, -8vh, 0) scale(1.06); }
+      100% { transform: translate3d(9vw, -3vh, 0) scale(1); }
+    }
+
+    @keyframes ringSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes ringSpinReverse {
+      from { transform: rotate(360deg); }
+      to   { transform: rotate(0deg); }
+    }
+
+    @keyframes beamSweepOne {
+      0%   { transform: translate3d(-8vw, -2vh, 0) rotate(-18deg); opacity: .08; }
+      50%  { transform: translate3d(6vw, 4vh, 0) rotate(-16deg); opacity: .20; }
+      100% { transform: translate3d(16vw, 10vh, 0) rotate(-14deg); opacity: .12; }
+    }
+
+    @keyframes beamSweepTwo {
+      0%   { transform: translate3d(8vw, 0, 0) rotate(18deg); opacity: .08; }
+      50%  { transform: translate3d(-8vw, -5vh, 0) rotate(16deg); opacity: .18; }
+      100% { transform: translate3d(-16vw, -10vh, 0) rotate(14deg); opacity: .12; }
+    }
+
+    @keyframes gridShift {
+      from {
+        background-position: 0 0, 0 0, 0% 50%;
+      }
+      to {
+        background-position: 84px 84px, -84px 84px, 100% 50%;
+      }
+    }
+
+    @keyframes beamTexture {
+      0%   { opacity: .28; }
+      50%  { opacity: .45; }
+      100% { opacity: .34; }
+    }
+
+    :root.light .ambient-core {
+      opacity: .24;
+      filter: blur(75px);
+    }
+
+    :root.light .ambient-orb {
+      opacity: .20;
+      filter: blur(92px);
+    }
+
+    :root.light .ambient-ring {
+      opacity: .12;
+    }
+
+    :root.light .ambient-beam {
+      opacity: .10;
+    }
+
+    :root.light .ambient-lines {
+      opacity: .18;
+    }
+
+    /* ---------- Motion system ---------- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes softFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent); }
+      50% { box-shadow: 0 0 34px color-mix(in srgb, var(--accent) 58%, transparent); }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes buttonShine {
+      from { transform: translateX(-180%) skewX(-18deg); }
+      to { transform: translateX(380%) skewX(-18deg); }
+    }
+
+    /* Hero entrance */
+    .hero .eyebrow,
+    .hero h1,
+    .hero-role,
+    .hero-copy,
+    .hero-actions,
+    .hero-meta {
+      opacity: 0;
+      animation: fadeUp .72s cubic-bezier(.2,.75,.25,1) forwards;
+    }
+
+    .hero .eyebrow { animation-delay: .08s; }
+    .hero h1 { animation-delay: .16s; }
+    .hero-role { animation-delay: .26s; }
+    .hero-copy { animation-delay: .36s; }
+    .hero-actions { animation-delay: .46s; }
+    .hero-meta { animation-delay: .56s; }
+
+    .hero-panel {
+      opacity: 0;
+      animation:
+        fadeUp .85s cubic-bezier(.2,.75,.25,1) .28s forwards,
+        softFloat 5.8s ease-in-out 1.25s infinite;
+    }
+
+    .brand-mark {
+      animation: glowPulse 3.2s ease-in-out infinite;
+    }
+
+    .gradient-text {
+      background-size: 220% 220%;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+        opacity .72s cubic-bezier(.2,.75,.25,1),
+        transform .72s cubic-bezier(.2,.75,.25,1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Interactive cards */
+    .experience-card,
+    .project-card,
+    .skill-group,
+    .credential-card,
+    .education-card {
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .experience-card,
+    .project-card,
+    .skill-group {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experience-card::before,
+    .project-card::before,
+    .skill-group::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        420px circle at var(--mx, 50%) var(--my, 50%),
+        color-mix(in srgb, var(--accent) 10%, transparent),
+        transparent 42%
+      );
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .experience-card:hover::before,
+    .project-card:hover::before,
+    .skill-group:hover::before {
+      opacity: 1;
+    }
+
+    .experience-card:hover,
+    .project-card:hover,
+    .skill-group:hover,
+    .credential-card:hover,
+    .education-card:hover {
+      transform: translateY(-5px);
+      border-color: color-mix(in srgb, var(--brand) 46%, var(--line));
+      box-shadow: 0 22px 48px rgba(0,0,0,.16);
+    }
+
+    .focus-item {
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+
+    .focus-item:hover {
+      transform: translateX(6px);
+      border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+      background: color-mix(in srgb, var(--surface-soft) 82%, var(--accent) 5%);
+    }
+
+    /* Button light sweep */
+    .btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: -35%;
+      bottom: -35%;
+      left: -35%;
+      width: 22%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.24), transparent);
+      transform: translateX(-180%) skewX(-18deg);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .btn:hover::after {
+      animation: buttonShine .72s ease forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal,
+      .hero .eyebrow,
+      .hero h1,
+      .hero-role,
+      .hero-copy,
+      .hero-actions,
+      .hero-meta,
+      .hero-panel {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
   </style>
 </head>
-<body>
-  <canvas id="bgCanvas" aria-hidden="true"></canvas>
-  <div class="radial" aria-hidden="true"></div>
 
-  <!-- Header: brand left, nav/top-right -->
-  <header>
-    <div class="wrap nav">
-      <div class="brand" aria-label="Home"><span class="dot" aria-hidden></span></div>
+<body>
+
+  <div class="ambient-bg" aria-hidden="true">
+    <span class="ambient-core"></span>
+
+    <span class="ambient-orb orb-one"></span>
+    <span class="ambient-orb orb-two"></span>
+    <span class="ambient-orb orb-three"></span>
+
+    <span class="ambient-ring ring-one"></span>
+    <span class="ambient-ring ring-two"></span>
+
+    <span class="ambient-beam beam-one"></span>
+    <span class="ambient-beam beam-two"></span>
+
+    <span class="ambient-lines"></span>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="siteHeader">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Taha Mohamed Youssef home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Taha Mohamed Youssef
+      </a>
+
       <div class="nav-right">
-        <nav aria-label="Primary" class="nav-links">
+        <nav class="nav-links" aria-label="Primary navigation">
           <a href="#home">Home</a>
-          <a href="#journey">Journey</a>
+          <a href="#education">Education</a>
           <a href="#experience">Experience</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
-          <a href="#connect">Connect</a>
+          <a href="#certifications">Credentials</a>
+          <a href="#contact">Contact</a>
         </nav>
-        <button id="themeBtn" class="icon-btn" aria-label="Toggle theme">🌓</button>
+
+        <button id="themeBtn" class="icon-btn" type="button" aria-label="Toggle light and dark theme">
+          ◐
+        </button>
       </div>
     </div>
   </header>
 
-  <main id="main" class="wrap">
-    <!-- HOME -->
+  <main id="main">
     <section id="home" class="hero">
-      <div>
-        <h1>Taha Mohamed</h1>
-        <div class="roles">Software & IT Engineer · CS grad @ Cairo University</div>
-        <p class="muted intro">Software Developer with experience in mobile and web development. Skilled in building Mobile applications and responsive websites using technologies such as Java, Kotlin, JavaScript, React.js, and ASP.NET. Completed freelance projects and published applications on mobile platforms, gaining practical experience in design, development, testing, and deployment.
-Gained IT experience during national military service as an IT Administrator, working with system support and basic networking 
-tasks. Also familiar with Linux, Python, and cybersecurity tools such as Kali Linux. Eager to grow and continue improving technical
- and problem-solving skills.</p>
-        <div style="margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-          <a class="btn primary" href="#projects">View Projects</a>
-          <a class="btn ghost" href="#journey">My Journey</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- JOURNEY (your data) -->
-    <section id="journey" class="journey">
-      <h2 class="section">My Journey</h2>
-      <div class="timeline">
-        <div class="trow left">
-          <div class="tcontent card">
-            <div class="tmeta"><span class="tl-node">🎓</span><span class="year">2019</span></div>
-            <strong>CS Foundations @ UNI</strong>
-            <div class="muted">Began B.S. in Computer Science with a major in Information Technology at Cairo University. Built a strong foundation in Data Structures, Algorithms, and Software Engineering, while exploring Android development and web development and networking.</div>
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Software · Automation · IT
           </div>
-        </div>
-        <div class="trow right">
-          <div class="tcontent card">
-            <div class="tmeta"><span class="tl-node">🎯</span><span class="year">2023</span></div>
-            <strong>Graduation</strong>
-            <div class="muted">Pursuing a B.S. in Computer Science (Major: Information Technology), Actively seeking Software Engineering, Android development, web technologies, networking courses to gain real-world experience and contribute to innovative, secure, and automated systems.</div>
-          </div>
-        </div>
-        <div class="trow left">
-          <div class="tcontent card">
-            <div class="tmeta"><span class="tl-node">📜</span><span class="year">2024–2025</span></div>
-            <strong>Certifications & Projects</strong>
-            <div class="muted">growing my skills in software engineering and networking, got Certifications in android development and web development also studied CCNA, i have published over 15 app and game on google play and app gallery stores.</div>
-          </div>
-        </div>
-        <div class="trow right">
-          <div class="tcontent card">
-            <div class="tmeta"><span class="tl-node">🛠️</span><span class="year">2025-2026</span></div>
-            <strong>National military service</strong>
-            <div class="muted">During my national service at ghamra military hospital, I was responsible for maintaining and managing all servers, network devices, and IT infrastructure of the hospital. I ensured the smooth operation and security of critical systems while providing IT support to staff, gaining hands-on experience in system administration, networking, and real-world problem solving also earned a Certificate of Experience from the National Military.</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <h2 class="section">Professional Experience</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Freelance Mobile Developer<span class="muted">(April 2020 – Present)</span></h3>
-          <ul>
-            <li>Founded Interstellar Coders (April 2020 – Present) and spearheaded app and game development projects.</li>
-            <li>Designed, developed, and published multiple Android apps and games on Google Play Store and AppGallery.</li>
-            <li>Led the full development lifecycle from concept, design, coding, testing, to deployment.</li>
-            <li>Enhanced skills in mobile, game, and web development through hands-on project experience.</li>
-            <li>earned Certifications in Mobile development and web development and network.</li>
-          </ul>
-          <div class="muted">Android Studio ·Java · Kotlin · Firebase · Git/GitHub · Canvas</div>
-        </article>
-        <article class="card">
-          <h3>Freelance Web Developer<span class="muted">(2024 – Present)</span></h3>
-          <ul>
-            <p>Designed, developed, and deployed responsive websites and web applications for freelance and personal projects.</p>
-          </ul>
-          <div class="muted">HTML/CSS/JavaScript · React · Bootstrap · .NET/ASP.NET · 
-            REST APIs · Git/GitHub · Firebase · Visual Studio Code · Responsive Web Design · SQL/MySQL
-          </div>
-        </article>
-        <article class="card">
-          <h3>IT Administrator - National Military service<span class="muted">(Jun 2025 – August 2026 · Ghamra Military Hospital)</span></h3>
-          <ul>
-          <li>Maintained and managed all hospital servers, network devices, and IT infrastructure.</li>
-          <li>Ensured continuous operation of hospital systems, including troubleshooting hardware and software issues.</li>
-          <li>Implemented security measures and performed regular backups to safeguard sensitive data.</li>
-          <li>Provided technical support to hospital staff and trained them on IT systems and protocols.</li>
-          <li>Earned a Certificate of Experience from the National Military</li>
-          </ul>
-          <div class="muted">Technical Support · Troubleshooting · Networking</div>
-        </article>
-      </div>
-    </section>
+          <h1>Taha Mohamed<br><span class="gradient-text">Youssef</span></h1>
 
-    <!-- SKILLS with small icons -->
-    <!-- <section id="skills">
-      <h2 class="section">Core Expertise</h2>
-      <div class="grid grid-3">
-        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">💻</span><strong>Software Development</strong></div><div class="muted">Python, Java, C/C++, JavaScript</div></div>
-        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">☁️</span><strong>Cloud</strong></div><div class="muted">AWS, VMware </div></div>
-        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">🌐</span><strong>Web</strong></div><div class="muted">React, Node.js, REST APIs, HTML/CSS</div></div>
-        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">📊</span><strong>Machine learning</strong></div><div class="muted">Pandas, NumPy, scikit-learn</div></div>
-        <div class="card skill-card"><div class="skill-head"><span class="skill-icon">🌐</span><strong>Network</strong></div><div class="muted">CCNA</div></div>
-      </div>
-    </section> -->
-
-    <section id="skills">
-      <h2 class="section">Core Expertise</h2>
-      <div class="grid grid-3">
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">💻</span>
-            <strong>Software Development</strong>
-          </div>
-          <div class="muted">Python, Java, C/C++, JavaScript</div>
-        </div>
-
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">📱</span>
-            <strong>Mobile</strong>
-          </div>
-          <div class="muted">Android Studio, Java, Kotlin, Firebase, Mobile UI Design 
-</div>
-        </div>
-       
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">🌐</span>
-            <strong>Web</strong>
-          </div>
-          <div class="muted">React, Node.js, REST APIs, HTML/CSS</div>
-        </div>
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">📊</span>
-            <strong>Data & ML</strong>
-          </div>
-          <div class="muted">Pandas, NumPy, scikit-learn</div>
-        </div>
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">🌐</span>
-            <strong>Networking & Cybersecurity</strong>
-          </div>
-          <div class="muted">CCNA, Kali Linux, Python, Linux Fundamentals, Network Troubleshooting, TCP/IP Fundamentals, Wireshark, Nmap, Basic Cybersecurity & Penetration Testing Knowledge, Security Testing Tools, DNS & DHCP, Cisco Packet Tracer
-</div>
-        </div>
-
-
-
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">☁️</span>
-            <strong>Cloud</strong>
-          </div>
-          <div class="muted">AWS · VMware</div>
-        </div>
-
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">🧠</span>
-            <strong>Problem Solving</strong>
-          </div>
-          <div class="muted">Data Structures & Algorithms, Object-Oriented Design, Competitive Programming</div>
-        </div>
-
-        <div class="card skill-card">
-          <div class="skill-head">
-            <span class="skill-icon">🧰</span>
-            <strong>Tools & Platforms</strong>
-          </div>
-          <div class="muted">VS Code, IntelliJ, Linux, Git, Bash, PowerShell, Android Studio, kali, cisco packet tracer, atom</div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <h2 class="section">Web Development Projects</h2>
-      <div class="grid grid-3">
-        <article class="card">
-        <h3>Human Resource (HR) system</h3>
-        <p> Full-stack system with real-time updates, secure auth, and automated deployments.</p>
-        <div class="muted">HTML/CSS . React </div>
-      </article>
-
-
-
-
-
-      <article class="card">
-      <h3>Interstellar Games</h3>
-      <p>
-      Developed and designed Interstellar, a browser-based platform offering 500+ games and apps, theme customization, and optimized mobile performance.
-      </p>
-      <div class="muted">
-      HTML · CSS · JS . JSON . Netlify / Git
-      </div>
-      <a href="https://interstellar-games.netlify.app/" class="btn ghost">View site</a>
-      </article>
-
-
-
-
-      <article class="card">
-      <h3>Level Devil Game</h3>
-      <p>
-      Built with advanced HTML/CSS/JS a fast-paced, skill-based platformer game where players navigate through challenging levels filled with traps, obstacles, and enemies. The goal is to reach the end of each level while avoiding hazards and collecting points. Players must use timing, precision, and strategy to progress through increasingly difficult stages..
-      </p>
-      <div class="muted">
-      HTML · CSS · JS . AJAX
-      </div>
-      <a href="https://taha309.github.io/LevelDevil/" class="btn ghost">View site</a>
-      </article>
-
-
-
-
-
-      <article class="card">
-      <h3>FlappyPlane Game</h3>
-      <p>
-      Built with advanced HTML/CSS/JS/AJAX a game that you fly as long as you can without hitting the towers it is a recreation of the old game flappybird.
-      </p>
-      <div class="muted">
-      HTML · CSS · JS . AJAX
-      </div>
-      <a href="https://taha309.github.io/flappyplane/" class="btn ghost">View site</a>
-      </article>
-
-
-      <article class="card">
-      <h3>MarioBros Game</h3>
-      <p>
-      Built with advanced HTML/CSS/JS/TYPESCRIPT a recreation of the original mario bros game.
-      </p>
-      <div class="muted">
-      HTML · CSS · JS . TYPESCRIPT
-      </div>
-      <a href="https://taha309.github.io/MarioGame/" class="btn ghost">View site</a>
-      </article>
-
-
-
-
-
-
-      </div>
-    </section>
-
-
-
-
-    <section id="androidprojects">
-      <h2 class="section">Mobile Development Projects</h2>
-      <div class="grid grid-3">
-
-
-
-
-      <article class="card">
-      <h3>Icy Tower Mobile Game</h3>
-      <p>
-      Developed as an Android game using Java and Android Studio Canvas, this 2D platformer challenges players to jump up an endless tower of platforms. Features include smooth character controls, progressive difficulty, and score tracking, showcasing skills in mobile game development, graphics rendering, and interactive design.
-      </p>
-      <div class="muted">
-      Android Studio · Java · Canvas
-      </div>
-      <a href="https://appgallery.huawei.com/app/C111675071" class="btn ghost">View on AppGallery</a>
-      </article>
-        <article class="card">
-          <h3>Slayer Pixel Dungeon android game</h3>
-          <p>Developed as an Android game using Java and Android Studio Canvas, this pixel-art dungeon crawler allows players to navigate challenging levels, battle monsters, and collect loot. The game features strategic gameplay, procedural level design, and engaging pixel-art graphics, demonstrating skills in mobile game development, game mechanics, and interactive design.
+          <p class="hero-role">
+            Software Developer building mobile, web, and automation systems.
           </p>
-          <div class="muted">Android Studio · Java · Canvas</div>
-          <a href="https://appgallery.huawei.com/app/C111732793" class="btn ghost">View on AppGallery</a>
+
+          <p class="hero-copy">
+            Software Developer with hands-on experience in mobile, web, and automation development,
+            plus IT administration and networking. I build and deploy Android applications,
+            responsive web projects, and Python automation systems using Java, Kotlin,
+            JavaScript, React.js, Python, Android ADB, and OpenCV.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#projects">View Selected Projects</a>
+            <a class="btn secondary" href="CV - Taha Mohamed.pdf" target="_blank" rel="noopener">Open CV</a>
+            <a class="btn secondary" href="#contact">Contact Me</a>
+          </div>
+
+          <div class="hero-meta" aria-label="Quick information">
+            <span>📍 Cairo, Egypt</span>
+            <span>🎓 Cairo University · IT Department</span>
+            <span>💻 Mobile · Web · Automation</span>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Professional focus">
+          <div class="panel-kicker">Professional Focus</div>
+
+          <div class="focus-list">
+            <div class="focus-item">
+              <strong>Mobile Development</strong>
+              <span>Android Studio · Java · Kotlin · Firebase</span>
+            </div>
+
+            <div class="focus-item">
+              <strong>Web Development</strong>
+              <span>HTML5 · CSS3 · JavaScript · React.js</span>
+            </div>
+
+            <div class="focus-item">
+              <strong>Automation Systems</strong>
+              <span>Python · Android ADB · OpenCV · Tkinter</span>
+            </div>
+
+            <div class="focus-item">
+              <strong>IT & Networking</strong>
+              <span>System Support · Networking · Linux · Security Tools</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Education</div>
+            <h2>Academic foundation</h2>
+          </div>
+          <p>
+            Formal computer science and IT education, followed by practical work across software,
+            automation, systems, and networking.
+          </p>
+        </div>
+
+        <article class="card education-card">
+          <div>
+            <h3>B.Sc. in Computers and Artificial Intelligence</h3>
+            <p>
+              Faculty of Computers and Artificial Intelligence · IT Department<br>
+              Cairo University, Egypt
+            </p>
+          </div>
+          <div class="date-pill">SEPT 2023</div>
         </article>
-
       </div>
     </section>
 
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Experience</div>
+            <h2>What I’ve worked on</h2>
+          </div>
+          
+        </div>
 
+        <div class="experience-list">
+          <article class="card experience-card">
+            <div class="experience-time">2020 – Present</div>
+            <div class="experience-body">
+              <h3>Freelance Mobile Developer</h3>
+              <p>
+                Designed, developed, published, and maintained mobile applications and games,
+                managing the full lifecycle from concept and UI design through deployment.
+              </p>
+              <div class="tech-row">
+                <span class="tag">Android Studio</span>
+                <span class="tag">Java</span>
+                <span class="tag">Kotlin</span>
+                <span class="tag">Git/GitHub</span>
+                <span class="tag">Firebase</span>
+                <span class="tag">Canvas</span>
+              </div>
+            </div>
+          </article>
 
+          <article class="card experience-card">
+            <div class="experience-time">2024 – Present</div>
+            <div class="experience-body">
+              <h3>Freelance Web Developer</h3>
+              <p>
+                Designed, developed, and deployed responsive websites and web applications
+                for freelance and personal projects.
+              </p>
+              <div class="tech-row">
+                <span class="tag">HTML5/CSS3</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">React.js</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">Git/GitHub</span>
+                <span class="tag">Firebase</span>
+              </div>
+            </div>
+          </article>
 
+          <article class="card experience-card">
+            <div class="experience-time">2026 – Present</div>
+            <div class="experience-body">
+              <h3>Automation Systems Developer</h3>
+              <p>
+                Develops desktop automation systems for repeatable business workflows,
+                combining Python, Android device control, computer vision, and structured
+                CSV/Excel data processing.
+              </p>
+              <div class="tech-row">
+                <span class="tag">Python</span>
+                <span class="tag">Android ADB</span>
+                <span class="tag">OpenCV</span>
+                <span class="tag">Tkinter</span>
+                <span class="tag">CSV/Excel Automation</span>
+              </div>
+            </div>
+          </article>
 
-
-    <section id="otherprojects">
-      <h2 class="section">Other Projects</h2>
-      <div class="grid grid-3">
-
-
-        <article class="card">
-        <h3>Night Patrol Bot (Graduation project)</h3>
-        <p>
-          Developed using Raspberry Pi, a camera, a motor, and four sound sensors, this bot performs automated night surveillance. The camera detects motion and determines whether it is caused by a human, while the sound sensors trigger the camera to rotate towards detected sounds. When a human is identified, the bot captures a screenshot and sends it to the owner via WhatsApp, demonstrating skills in IoT, automation, motion detection, and real-time alert systems.
-        </p>
-        <div class="muted">python . machine learning . hardware components . face recognition</div>
-      </article>
-
-
-
-        <article class="card">
-          <h3>office networking</h3>
-          <p>Designed and simulated office network using Packet Tracer, configuring routers, switches, and workstations, while implementing advanced networking concepts such as routing, VLANs, and network troubleshooting to ensure full connectivity and functionality.</p>
-
-          <div class="muted">Cisco Packet Tracer · Network troubleshooting tools</div>
-        </article>
+          <article class="card experience-card">
+            <div class="experience-time">Jun 2025 – Aug 2026</div>
+            <div class="experience-body">
+              <h3>IT Administrator</h3>
+              <div class="experience-place">Ghamra Military Hospital for Families</div>
+              <ul class="experience-bullets">
+                <li>Worked in the Systems Department, supporting day-to-day computer systems and IT operations.</li>
+                <li>Provided technical support and assisted users with system-related issues in the hospital environment.</li>
+                <li>Supported network troubleshooting and basic networking tasks to help maintain reliable connectivity.</li>
+                <li>Assisted with routine system maintenance and IT infrastructure tasks.</li>
+                <li>Worked in a professional healthcare environment requiring responsibility, discipline, and technical problem-solving.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Skills</div>
+            <h2>Technical toolkit</h2>
+          </div>
+          
+        </div>
 
+        <div class="skills-grid">
+          <article class="card skill-group">
+            <h3><span class="skill-icon">📱</span>Mobile Development</h3>
+            <p>Android Studio · Java · Kotlin · Firebase · Mobile UI Design</p>
+          </article>
 
+          <article class="card skill-group">
+            <h3><span class="skill-icon">🌐</span>Web Development</h3>
+            <p>HTML5 · CSS3 · JavaScript · React.js · Bootstrap · Responsive Design</p>
+          </article>
 
-    <!-- CONNECT -->
-    <section id="connect" class="connect card">
-      <h2 class="section" style="margin-top:0;font-size:36px">Let's Connect</h2>
-      <p class="muted" style="max-width:760px;margin:0 auto 18px">Interested in hiring me? Or in collaborating or learning more about my work? I'm always open to discussing new projects and opportunities.</p>
+          <article class="card skill-group">
+            <h3><span class="skill-icon">⚙️</span>Automation</h3>
+            <p>Python Automation · Workflow Automation · Business Process Automation · Android ADB · OpenCV · Tkinter</p>
+          </article>
 
+          <article class="card skill-group">
+            <h3><span class="skill-icon">⌨️</span>Programming Languages</h3>
+            <p>Java · Kotlin · JavaScript · Python · C++</p>
+          </article>
 
+          <article class="card skill-group">
+            <h3><span class="skill-icon">🖥️</span>Systems & Tools</h3>
+            <p>Active Directory · VMWare · EXSI · Git/GitHub · Visual Studio Code · Visual Studio · Firebase Database</p>
+          </article>
 
-      <div class="subcta-row">
-        <!-- LinkedIn (text then icon on RIGHT) — ICON MADE SLIGHTLY SMALLER -->
-        <a class="btn ghost icon" href="https://www.linkedin.com/in/taha-mohamed-19aa8a1b3/" target="_blank" rel="noopener">
-          LinkedIn
-          <svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zm7 0h3.83v1.98h.05C12 9.02 13.7 8 15.93 8 20.1 8 21 10.76 21 14.62V23h-4v-7.37c0-1.76-.03-4.02-2.45-4.02-2.46 0-2.84 1.92-2.84 3.9V23h-4V8.5z"/>
-          </svg>
-        </a>
-
-        <a class="btn ghost" href="CV - Taha Mohamed.pdf" target="_blank" rel="noopener">
-          CV
-        </a>
-
-        <a class="btn ghost" href="Certificates - Taha Mohamed.pdf" target="_blank" rel="noopener">
-          Certificates
-        </a>
-
-        <!-- GitHub (text then icon on RIGHT) -->
-        <a class="btn ghost icon" href="https://github.com/taha309" target="_blank" rel="noopener">
-          GitHub
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-1.98c-3.2.7-3.87-1.37-3.87-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.26 3.4.96.11-.76.41-1.26.74-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.2-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.75.81 1.2 1.83 1.2 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.79 1.07.79 2.17v3.22c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
-          </svg>
-        </a>
+          <article class="card skill-group">
+            <h3><span class="skill-icon">🔐</span>Networking & Cybersecurity</h3>
+            <p>Linux · Kali Linux · Network Troubleshooting · TCP/IP · DNS/DHCP · Wireshark · Nmap · Cisco Packet Tracer · Security Testing Tools</p>
+          </article>
+        </div>
       </div>
-
-      <p class="muted" style="margin-top:18px;font-size:13px">Your privacy is important to me. Email or phone works great; happy to share more details on request.</p>
     </section>
 
-    <section class="contact-bar" aria-label="Contact">
-  <div class="contact-line">
-    <!-- Mail icon -->
-    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/>
-    </svg>
-    <a class="contact-link" href="mailto:tmy3092000@gmail.com">
-      tmy3092000@gmail.com
-    </a>
-  </div>
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Selected Projects</div>
+            <h2>Work you can actually open</h2>
+          </div>
+          
+        </div>
 
-  <div class="contact-line">
-    <!-- Phone icon -->
-    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.65a1 1 0 01-1 1C10.07 22.97 1.03 13.93 1.04 3.01a1 1 0 011-1H5.7a1 1 0 011 1c0 1.24.2 2.43.57 3.56a1 1 0 01-.25 1.02l-2.4 2.2z"/>
-    </svg>
-    <a class="contact-link" href="tel:+201099151019">
-      +201099151019
-    </a>
-  </div>
-</section>
+        <div class="projects-grid">
+          <article class="card project-card">
+            <div class="project-type">Automation</div>
+            <h3>WhatsApp Campaign Automation System</h3>
+            <p>
+              Desktop campaign tool with CSV/Excel contact import, Android ADB integration,
+              Arabic/English keyboard mapping, progress tracking, and campaign logs.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">Python</span>
+                <span class="tag">ADB</span>
+                <span class="tag">Tkinter</span>
+                <span class="tag">CSV/Excel</span>
+              </div>
+              <span class="project-link">Desktop System</span>
+            </div>
+          </article>
 
+          <article class="card project-card">
+            <div class="project-type">Web Development</div>
+            <h3>Interstellar Games Website</h3>
+            <p>
+              Browser-based games and apps platform with responsive layouts and theme customization.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <a class="project-link" href="https://interstellar-games.netlify.app/" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
 
+          <article class="card project-card">
+            <div class="project-type">Web Development</div>
+            <h3>Classic Mario Game</h3>
+            <p>
+              Browser-based recreation built as a front-end game project.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">TypeScript</span>
+              </div>
+              <a class="project-link" href="https://taha309.github.io/MarioGame/" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
 
-    <footer style="text-align:center;color:var(--muted);font-size:13px;margin-top:24px">© <span id="year"></span> · Taha Mohamed · Built with advanced HTML/CSS/JS</footer>
+          <article class="card project-card">
+            <div class="project-type">Web Development</div>
+            <h3>Level Devil Game</h3>
+            <p>
+              Fast-paced platform game focused on timing, precision, hazards, and progressively harder stages.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">AJAX</span>
+              </div>
+              <a class="project-link" href="https://taha309.github.io/LevelDevil/" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-type">Mobile Development</div>
+            <h3>Icy Tower Game</h3>
+            <p>
+              Android 2D platform game developed with Java and Android Studio Canvas.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">Android Studio</span>
+                <span class="tag">Java</span>
+                <span class="tag">Canvas</span>
+              </div>
+              <a class="project-link" href="https://appgallery.huawei.com/app/C111675071" target="_blank" rel="noopener">AppGallery ↗</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-type">Mobile Development</div>
+            <h3>Slayer Pixel Dungeon</h3>
+            <p>
+              Pixel-art Android dungeon crawler demonstrating mobile game mechanics and interactive design.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">Android Studio</span>
+                <span class="tag">Java</span>
+                <span class="tag">Canvas</span>
+              </div>
+              <a class="project-link" href="https://appgallery.huawei.com/app/C111732793" target="_blank" rel="noopener">AppGallery ↗</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-type">Web Development</div>
+            <h3>Portfolio Website</h3>
+            <p>
+              Personal portfolio presenting experience, technical skills, projects, certifications, and contact information.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <a class="project-link" href="#home">You’re viewing it ↑</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-type">Web Development</div>
+            <h3>Morse Code Website</h3>
+            <p>
+              Web project included among the live web development work in the current CV.
+            </p>
+            <div class="project-footer">
+              <div class="tech-row">
+                <span class="tag">Web Project</span>
+              </div>
+              <span class="project-link">Listed in CV</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Credentials</div>
+            <h2>Courses & credentials</h2>
+          </div>
+          
+        </div>
+
+        <div class="credentials-grid">
+          <article class="card credential-card">
+            <h3>Certifications & Courses</h3>
+            <ul class="cert-list">
+              <li>Android Game Development Crash Course by Three Millennials · Udemy · 2024</li>
+              <li>HTML5 Ultimate Guide by Josh Warner · Udemy · 2025</li>
+              <li>Frontend Web Development Ultimate Guide by Josh Warner · Udemy · 2026</li>
+              <li>A Beginner's Guide to Learn Machine Learning by Masud Rana · Udemy · 2024</li>
+              <li>The Complete Ethical Hacking Course by Joseph Delgadillo · Udemy · 2026</li>
+              <li>CCNA 200-301 and CCNP ENCOR 350-401</li>
+            </ul>
+
+            <div class="hero-actions" style="margin-top:20px">
+              <a class="btn secondary" href="Certificates - Taha Mohamed.pdf" target="_blank" rel="noopener">
+                Open Certificates
+              </a>
+            </div>
+          </article>
+
+          <div style="display:grid;gap:16px">
+            <article class="card credential-card">
+              <h3>Professional Experience Certificate</h3>
+              <p style="margin:0;color:var(--muted);font-size:13px">
+                Letter of Experience · IT Administrator · National Military ·
+                Ghamra Military Hospital for Families · 2025/2026
+              </p>
+            </article>
+
+            <article class="card credential-card">
+              <h3>Languages</h3>
+              <div class="language-row">
+                <div class="language">
+                  <strong>Arabic</strong>
+                  <span>Native</span>
+                </div>
+                <div class="language">
+                  <strong>English</strong>
+                  <span>Very Good Working Proficiency</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container card contact">
+      <div class="section-kicker">Contact</div>
+      <h2>Let’s build something useful.</h2>
+      <p>
+        For software development, automation systems, mobile/web projects, or IT-related opportunities,
+        you can reach me through the channels below.
+      </p>
+
+      <div class="contact-actions">
+        <a class="btn primary" href="mailto:tmy3092000@gmail.com">Email Me</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/taha-mohamed-19aa8a1b3/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn secondary" href="https://github.com/taha309" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn secondary" href="CV - Taha Mohamed.pdf" target="_blank" rel="noopener">CV</a>
+      </div>
+
+      <div class="contact-details">
+        <a href="mailto:tmy3092000@gmail.com">tmy3092000@gmail.com</a>
+        <a href="tel:+201099151019">01099-151-019</a>
+        <span>Manial El-Rowda · Cairo, Egypt</span>
+      </div>
+    </section>
   </main>
 
+  <footer class="container">
+    © <span id="year"></span> Taha M. Yossif · Portfolio
+  </footer>
+
   <script>
-    // ----- Theme toggle (dark by default; remembers choice) -----
-    const root=document.documentElement, KEY='kp_theme';
-    const saved=localStorage.getItem(KEY);
-    if(saved){ root.classList.toggle('light', saved==='light'); root.classList.toggle('dark', saved==='dark'); }
-    document.getElementById('themeBtn').addEventListener('click',()=>{
-      const next=root.classList.contains('light')?'dark':'light';
-      root.classList.toggle('light', next==='light');
-      root.classList.toggle('dark', next==='dark');
-      localStorage.setItem(KEY,next);
+    const root = document.documentElement;
+    const themeBtn = document.getElementById("themeBtn");
+    const header = document.getElementById("siteHeader");
+    const themeKey = "taha_portfolio_theme";
+
+    const savedTheme = localStorage.getItem(themeKey);
+    if (savedTheme === "light") {
+      root.classList.add("light");
+    }
+
+    themeBtn.addEventListener("click", () => {
+      root.classList.toggle("light");
+      const next = root.classList.contains("light") ? "light" : "dark";
+      localStorage.setItem(themeKey, next);
     });
 
-    // ----- Scroll spy + click/hash fallback (reliable highlighting) -----
-    const links=[...document.querySelectorAll('.nav-links a')];
-    const byHash=new Map(links.map(a=>[a.getAttribute('href'),a]));
-    function setActive(hash){ links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===hash)); }
-    links.forEach(a=> a.addEventListener('click',()=> setActive(a.getAttribute('href')) ));
-    window.addEventListener('hashchange',()=> setActive(location.hash || '#home'));
-    const spy=new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          const hash='#'+e.target.id; if(byHash.get(hash)) setActive(hash);
-        }
+    const navLinks = [...document.querySelectorAll(".nav-links a")];
+    const sections = [...document.querySelectorAll("main section[id]")];
+
+    const setActive = (id) => {
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
       });
-    },{ rootMargin:'-30% 0px -55% 0px', threshold:[0,0.25,0.5] });
-    document.querySelectorAll('main section').forEach(sec=>spy.observe(sec));
-    setActive(location.hash || '#home');
+    };
 
-    // ----- Background canvas particles -----
-    const c=document.getElementById('bgCanvas'), ctx=c.getContext('2d'), DPR=Math.min(2,devicePixelRatio||1);
-    function resize(){ c.width=innerWidth*DPR; c.height=innerHeight*DPR; ctx.setTransform(DPR,0,0,DPR,0,0) }
-    resize(); addEventListener('resize', resize);
-    const P=80, parts=Array.from({length:P},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()*2-1)*.6,vy:(Math.random()*2-1)*.6}));
-    (function step(){
-      ctx.clearRect(0,0,innerWidth,innerHeight);
-      const g=ctx.createLinearGradient(0,0,innerWidth,innerHeight); g.addColorStop(0,'rgba(124,156,255,.10)'); g.addColorStop(1,'rgba(34,211,238,.08)'); ctx.fillStyle=g; ctx.fillRect(0,0,innerWidth,innerHeight);
-      parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;});
-      for(let i=0;i<P;i++) for(let j=i+1;j<P;j++){const a=parts[i],b=parts[j];const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<150){ctx.globalAlpha=(150-d)/150*.45;ctx.strokeStyle='rgba(136,148,255,.8)';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
-      ctx.globalAlpha=1; ctx.fillStyle='rgba(34,211,238,.9)'; parts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,1.8,0,Math.PI*2);ctx.fill();});
-      requestAnimationFrame(step);
-    })();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-    // Footer year
-    document.getElementById('year').textContent=new Date().getFullYear();
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      {
+        rootMargin: "-28% 0px -55% 0px",
+        threshold: [0.05, 0.25, 0.5]
+      }
+    );
 
-    // To use Calendly for “Book a Meeting”, just replace the href:
-    // document.getElementById('bookLink').href = 'https://calendly.com/YOUR_HANDLE/intro';
+    sections.forEach((section) => observer.observe(section));
+
+    const updateHeader = () => {
+      header.classList.toggle("scrolled", window.scrollY > 12);
+    };
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+
+
+
+    // ---------- Scroll reveal + staggered cards ----------
+    const revealTargets = [];
+
+    document.querySelectorAll(".section-head").forEach((el) => {
+      el.classList.add("reveal");
+      revealTargets.push(el);
+    });
+
+    [
+      ".education-card",
+      ".experience-list .experience-card",
+      ".skills-grid .skill-group",
+      ".projects-grid .project-card",
+      ".credentials-grid .credential-card",
+      "#contact"
+    ].forEach((selector) => {
+      document.querySelectorAll(selector).forEach((el, index) => {
+        el.classList.add("reveal");
+        el.style.setProperty("--reveal-delay", `${Math.min(index * 85, 340)}ms`);
+        revealTargets.push(el);
+      });
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("revealed");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealTargets.forEach((el) => revealObserver.observe(el));
+
+    // Pointer-follow glow on cards.
+    document.querySelectorAll(".experience-card, .project-card, .skill-group").forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty("--mx", `${x}%`);
+        card.style.setProperty("--my", `${y}%`);
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
